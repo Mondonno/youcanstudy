@@ -5,10 +5,10 @@
 export const APP_CONFIG = {
   // Data source paths
   DATA_PATHS: {
-    CORE_QUESTIONS: 'data/questions-core.json',
-    META_QUESTIONS: 'data/questions-meta.json',
-    VIDEOS: 'data/videos.json',
-    ARTICLES: 'data/articles.json',
+    CORE_QUESTIONS: '/data/questions-core.json',
+    META_QUESTIONS: '/data/questions-meta.json',
+    VIDEOS: '/data/videos.json',
+    ARTICLES: '/data/articles.json',
   },
 
   // Domain weights for overall score calculation

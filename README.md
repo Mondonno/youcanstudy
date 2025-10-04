@@ -1,42 +1,72 @@
 # Learning Diagnostic App
 
-An evidence-based learning diagnostic tool that provides personalized study recommendations based on cognitive science principles. Built with vanilla TypeScript and comprehensive test coverage.
+An evidence-based learning diagnostic tool that provides personalized study recommendations based on cognitive science principles. **Now powered by React** with full TypeScript support and comprehensive test coverage.
 
 ## ✨ Features
 
-- **Interactive Questionnaire**: Evidence-based questions across 5 core learning domains
+- **Interactive Quiz**: Evidence-based questions across 5 core learning domains
 - **Personalized Reports**: Detailed score breakdowns with visual charts
+- **History Management**: Track and compare quiz attempts over time
+- **Import/Export**: Save, backup, and restore quiz history
 - **Smart Recommendations**: Tailored videos and articles based on your learning profile
-- **Export Capabilities**: JSON export and LLM-ready prompts
-- **100% Test Coverage**: 67 passing unit tests ensuring reliability
+- **Visual Analytics**: Interactive charts showing domain strengths
+- **React Components**: Modern, maintainable component architecture
+
+## 🚀 Quick Start
+
+### Development
+```bash
+npm install
+npm run dev
+```
+Visit: http://localhost:3000
+
+### Production Build
+```bash
+npm run build
+npm run preview
+```
+Visit: http://localhost:4173/youcanstudy/
+
+### Deploy
+Push to main branch - GitHub Actions automatically deploys to:
+**https://mondonno.github.io/youcanstudy/**
 
 ## 🏗️ Architecture
 
-The application is completely refactored with a modular, testable architecture:
+The application uses a modern React architecture with TypeScript:
 
 ```
 src/
+├── components/          # React components (.tsx)
+│   ├── App.tsx         # Main app with routing
+│   ├── IntroView.tsx   # Welcome screen
+│   ├── QuizView.tsx    # Quiz interface
+│   ├── ResultsView.tsx # Results display
+│   └── HistoryManager.tsx # History management
 ├── models/          # TypeScript interfaces and types
 ├── services/        # Pure business logic (testable)
 │   ├── scoring.service.ts
 │   ├── flags.service.ts
 │   ├── recommendation.service.ts
 │   ├── data.service.ts
-│   └── export.service.ts
-├── views/           # UI rendering components
+│   ├── export.service.ts
+│   └── history.service.ts
 ├── utils/           # Reusable utility functions
 │   ├── dom.utils.ts
 │   ├── chart.utils.ts
 ├── config/          # App configuration
-└── app.ts           # Main orchestrator
+└── main.tsx         # React entry point
 ```
 
 ### Key Principles
 
+- **React Components**: Modern component-based architecture
 - **Separation of Concerns**: Business logic separated from UI
 - **Pure Functions**: Services use pure, testable functions
-- **Type Safety**: Full TypeScript coverage
+- **Type Safety**: Full TypeScript coverage with React types
 - **Maintainability**: Clear module boundaries and documentation
+- **Fast Development**: Vite HMR for instant updates
 
 ## 🚀 Getting Started
 
@@ -104,11 +134,19 @@ Run `npm run test:coverage` to see detailed coverage reports.
 npm run dev          # Start Vite dev server with HMR
 npm run build        # Type-check and build for production
 npm run preview      # Preview production build locally
+npm run clean        # Remove compiled JS files
 npm test             # Run tests in watch mode
 npm run type-check   # Run TypeScript type checking
 npm run lint         # Lint TypeScript files
 npm run format       # Format code with Prettier
 ```
+
+## 📚 Documentation
+
+- **[QUICK_START.md](QUICK_START.md)** - Getting started guide
+- **[REACT_MIGRATION.md](REACT_MIGRATION.md)** - React migration details
+- **[FINAL_SUMMARY.md](FINAL_SUMMARY.md)** - All fixes and resolved issues
+- **[CLEANUP.md](CLEANUP.md)** - Repository cleanup notes
 
 ## 🔧 Configuration
 
@@ -128,32 +166,38 @@ npm run format       # Format code with Prettier
 
 ### Build
 
-- **Tool**: Vite 5
+- **Tool**: Vite 5 with React plugin
 - **Output**: `dist/`
 - **Dev Server**: Port 3000
+- **Base Path**: `/youcanstudy/` (GitHub Pages)
+
+## 🛠️ Tech Stack
+
+- **React 19** - UI components with hooks
+- **TypeScript 5.9** - Type safety
+- **Vite 5** - Fast build tool and dev server
+- **Vitest** - Unit testing framework
+- **Canvas API** - Chart rendering
+- **LocalStorage** - History persistence
 
 ## 📦 Project Structure
 
 ```
 youcanstudy/
 ├── src/                    # Source code
+│   ├── components/        # React components (.tsx)
 │   ├── models/            # TypeScript types
 │   ├── services/          # Business logic
-│   ├── views/             # UI components
 │   ├── utils/             # Helper functions
 │   ├── config/            # Configuration
-│   └── app.ts             # Main entry point
+│   └── main.tsx           # React entry point
 ├── tests/                  # Test files
 │   ├── unit/              # Unit tests
 │   └── fixtures/          # Test data
 ├── public/                 # Static assets
-│   ├── index.html
-│   └── styles.css
-├── data/                   # JSON data files
-│   ├── questions-core.json
-│   ├── questions-meta.json
-│   ├── videos.json
-│   └── articles.json
+│   ├── data/              # JSON data files
+│   └── styles.css         # Global CSS
+├── index.html              # HTML entry (at root)
 ├── package.json
 ├── tsconfig.json
 ├── vite.config.ts
@@ -163,12 +207,13 @@ youcanstudy/
 
 ## 🎯 Design Decisions
 
-### Why Vanilla TypeScript?
+### Why React?
 
-- **Zero Runtime Dependencies**: Lightweight and fast
-- **Better Control**: Full control over DOM manipulation
-- **Educational Value**: Clear implementation without framework magic
-- **Performance**: No virtual DOM overhead
+- **Component Reusability**: Easy to maintain and extend
+- **Better State Management**: React hooks for clean state handling
+- **Developer Experience**: Hot module replacement, better debugging
+- **Type Safety**: Full TypeScript + React type integration
+- **Future Ready**: Easy to add libraries and features
 
 ### Why This Architecture?
 
@@ -176,13 +221,16 @@ youcanstudy/
 2. **Maintainability**: Clear separation makes changes predictable
 3. **Scalability**: Easy to add new features or domains
 4. **Type Safety**: TypeScript catches errors at compile time
+5. **Performance**: Vite provides fast builds and HMR
 
-## 📈 Metrics
+## 📈 Status
 
-- **Test Coverage**: 100% of service layer
-- **Bundle Size**: ~50KB (uncompressed)
-- **Load Time**: <100ms (local)
-- **Browser Support**: Modern browsers (ES2020+)
+- ✅ **All features working**: Quiz, results, history management
+- ✅ **No console errors**: Clean runtime
+- ✅ **TypeScript strict mode passing**: Full type safety
+- ✅ **Tests passing**: Service layer fully tested
+- ✅ **Production ready**: Deployed to GitHub Pages
+- ✅ **React 19**: Modern hooks and components
 
 ## 🤝 Contributing
 
