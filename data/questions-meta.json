@@ -1,0 +1,13 @@
+[
+  {"id": "M1", "text": "I often reflect on my learning methods and adjust them to overcome challenges and achieve my learning goals.", "type": "likert5", "domain": "metacog_adjust"},
+  {"id": "M2", "text": "I can utilise multiple types of resources (e.g. lectures, textbooks, courses, etc.) to learn at a high quality, even if it is not clearly presented to me.", "type": "likert5", "domain": "resourcefulness"},
+  {"id": "M3", "text": "I regularly make adjustments to my learning methods that are effective at improving my quality of learning or time efficiency.", "type": "likert5", "domain": "metacog_adjust"},
+  {"id": "M4", "text": "I always think about why new information is important, with regard to the big picture.", "type": "likert5", "domain": "big_picture"},
+  {"id": "M5", "text": "I feel like I don't need to write as many notes as others to learn new information to the same level.", "type": "likert5", "domain": "note_economy"},
+  {"id": "M6", "text": "I find it relatively easy to learn to a high standard, even when I don't spend as much time as others.", "type": "likert5", "domain": "efficiency_self"},
+  {"id": "M7", "text": "I believe my intelligence is generally fixed and cannot increase.", "type": "ynm", "domain": "mindset_fixed", "reverse": true},
+  {"id": "M8", "text": "When others do well, I feel a sense of insecurity.", "type": "ynm", "domain": "social_comparison", "reverse": true},
+  {"id": "M9", "text": "I need lots of certainty and information before starting a new challenge or task.", "type": "ynm", "domain": "tolerance_ambiguity", "reverse": true},
+  {"id": "M10", "text": "My self-esteem is lowered when my results are not as good as I wanted.", "type": "ynm", "domain": "ego_attachment", "reverse": true},
+  {"id": "M11", "text": "I am very cautious of making mistakes, and I try to avoid situations or challenges where I am likely to make mistakes.", "type": "ynm", "domain": "error_avoidance", "reverse": true}
+]

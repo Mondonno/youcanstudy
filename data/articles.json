@@ -1,0 +1,122 @@
+[
+  {
+    "id": "art-priming-pretesting",
+    "title": "Three Ways to Prime Students for Learning",
+    "authors": "Lang & Ross",
+    "year": 2024,
+    "source": "Faculty Focus",
+    "url": "https://www.facultyfocus.com/articles/effective-teaching-strategies/three-ways-to-prime-students-for-learning/",
+    "maps_to": ["low_priming", "needs_big_picture"],
+    "est_minutes": 8,
+    "tldr": [
+      "Outlines three priming techniques: pre-exposure, activating prior knowledge and retrieval practice.",
+      "Pre-exposure involves previewing content to build a mental scaffold before class.",
+      "Activating prior knowledge and performing brain dumps reduce cognitive load and enhance retention."
+    ],
+    "try_tomorrow": [
+      "Spend 3–5 minutes skimming headings and bold terms before your next class.",
+      "Write down what you already know and at least three questions you expect to answer.",
+      "Do a 2-minute brain dump immediately after class to summarise what stuck."
+    ]
+  },
+  {
+    "id": "art-spaced-practice",
+    "title": "Spacing Practice and Working Memory",
+    "authors": "van Gerven et al.",
+    "year": 2023,
+    "source": "The Learning Scientists",
+    "url": "https://www.learningscientists.org/blog/2023/3/7-1",
+    "maps_to": ["low_retrieval", "overlearning_early"],
+    "est_minutes": 7,
+    "tldr": [
+      "Shows that spaced practice does not require more time than cramming but yields much better retention【554216430977859†L67-L95】.",
+      "Experiment with primary school students found that spacing reduces working memory depletion and improves performance【554216430977859†L173-L178】.",
+      "Recommends scheduling brief retrieval sessions across days instead of massed study."
+    ],
+    "try_tomorrow": [
+      "Replace one long study block with two shorter sessions separated by a day.",
+      "Use a calendar to plan 8-minute recall sessions 1 day and 3 days after learning.",
+      "Resist the urge to re-read notes; test yourself instead."
+    ]
+  },
+  {
+    "id": "art-retrieval-vs-concept-mapping",
+    "title": "Retrieval Practice Produces More Learning Than Elaborative Studying with Concept Mapping",
+    "authors": "Karpicke & Blunt",
+    "year": 2011,
+    "source": "Science",
+    "url": "https://science.sciencemag.org/content/331/6018/772",
+    "maps_to": ["low_retrieval", "weak_reference", "linear_notes"],
+    "est_minutes": 5,
+    "tldr": [
+      "Reports experiments showing students who practiced retrieval outperformed those who created concept maps on tests of meaningful learning【560033971467502†L295-L309】.",
+      "Retrieval practice strengthens memory and facilitates transfer to new contexts【560033971467502†L295-L309】.",
+      "Highlights that elaborative studying alone is insufficient without active recall."
+    ],
+    "try_tomorrow": [
+      "End every study session by recalling key ideas without looking at notes.",
+      "Create three questions and answer them from memory to consolidate understanding.",
+      "Mix retrieval with concept mapping by adding self-quiz prompts to your maps."
+    ]
+  },
+  {
+    "id": "art-interleaving-benefits",
+    "title": "Mix It Up: The Benefits of Interleaved Practice",
+    "authors": "Weinstein, Sumeracki & Stenger",
+    "year": 2019,
+    "source": "Life Sciences Education",
+    "url": "https://nsta.org/mix-it-up-interleaving-benefits",
+    "maps_to": ["low_retrieval", "overlearning_early", "low_resourcefulness"],
+    "est_minutes": 6,
+    "tldr": [
+      "Explains how interleaving problems and topics helps learners differentiate between problem types and promotes transfer【999445851119787†L23-L38】.",
+      "Suggests incorporating cumulative quizzes and integrated projects to encourage interleaved practice【999445851119787†L23-L38】.",
+      "Highlights that mixing topics yields higher performance than blocked practice."
+    ],
+    "try_tomorrow": [
+      "When doing homework, alternate between two topics instead of completing one fully before moving on.",
+      "Create a mini-quiz with problems from different subjects to practice interleaving.",
+      "Review and compare solutions across topics to notice similarities and differences."
+    ]
+  },
+  {
+    "id": "art-analogies-memory",
+    "title": "How Analogies Strengthen Memory and Understanding",
+    "authors": "Keefer & Landau",
+    "year": 2022,
+    "source": "Edutopia",
+    "url": "https://www.edutopia.org/article/using-analogies-to-teach/",
+    "maps_to": ["needs_big_picture", "low_priming", "weak_languages"],
+    "est_minutes": 5,
+    "tldr": [
+      "Describes research showing analogies help students connect new information to prior knowledge and improve comprehension【699215777082179†L85-L113】.",
+      "Suggests teachers deliberately select analogies that are familiar to learners to enhance memory.",
+      "Encourages students to generate their own analogies to make abstract concepts intuitive."
+    ],
+    "try_tomorrow": [
+      "When learning a difficult concept, think of a real-life analogy that shares the same structure.",
+      "Add a short analogy note beside each new idea in your notes to anchor it to something familiar.",
+      "Explain a new topic to a friend using an analogy to check if it sticks."
+    ]
+  },
+  {
+    "id": "art-growth-mindset",
+    "title": "Mindsets and Learning: Why Beliefs About Intelligence Matter",
+    "authors": "Dweck",
+    "year": 2020,
+    "source": "Psychological Science in the Public Interest",
+    "url": "https://www.psychologicalscience.org/observer/mindsets-and-learning",
+    "maps_to": ["risk_fixed_mindset"],
+    "est_minutes": 6,
+    "tldr": [
+      "Summarises research on fixed versus growth mindsets and how beliefs shape learning outcomes.",
+      "Students with a growth mindset seek challenges and persist despite setbacks, leading to higher achievement.",
+      "Emphasises that intelligence is malleable and can be increased through effort and strategy."
+    ],
+    "try_tomorrow": [
+      "Set a small, challenging goal and treat mistakes as opportunities to learn, not evidence of lack of ability.",
+      "Replace self-talk like ‘I can’t do this’ with ‘I can’t do this yet’ to encourage growth.",
+      "Reflect on past successes that resulted from persistence to reinforce a growth mindset."
+    ]
+  }
+]
