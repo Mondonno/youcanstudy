@@ -1,0 +1,64 @@
+.
+├── PROJECT_STRUCTURE.txt
+├── README.md
+├── REFACTORING_SUMMARY.md
+├── data
+│   ├── articles.json
+│   ├── questions-core.json
+│   ├── questions-meta.json
+│   └── videos.json
+├── docs
+│   └── ARCHITECTURE.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── index.html
+│   └── styles.css
+├── src
+│   ├── app.js
+│   ├── app.ts
+│   ├── config
+│   │   ├── app.config.js
+│   │   └── app.config.ts
+│   ├── models
+│   │   ├── types.js
+│   │   └── types.ts
+│   ├── services
+│   │   ├── data.service.js
+│   │   ├── data.service.ts
+│   │   ├── export.service.js
+│   │   ├── export.service.ts
+│   │   ├── flags.service.js
+│   │   ├── flags.service.ts
+│   │   ├── recommendation.service.js
+│   │   ├── recommendation.service.ts
+│   │   ├── scoring.service.js
+│   │   └── scoring.service.ts
+│   ├── utils
+│   │   ├── chart.utils.js
+│   │   ├── chart.utils.ts
+│   │   ├── dom.utils.js
+│   │   └── dom.utils.ts
+│   └── views
+│       ├── app.views.js
+│       └── app.views.ts
+├── tests
+│   ├── fixtures
+│   │   ├── mock-data.js
+│   │   └── mock-data.ts
+│   └── unit
+│       ├── data.service.test.js
+│       ├── data.service.test.ts
+│       ├── flags.service.test.js
+│       ├── flags.service.test.ts
+│       ├── recommendation.service.test.js
+│       ├── recommendation.service.test.ts
+│       ├── scoring.service.test.js
+│       └── scoring.service.test.ts
+├── tsconfig.json
+├── vite.config.js
+├── vite.config.ts
+├── vitest.config.js
+└── vitest.config.ts
+
+13 directories, 49 files
