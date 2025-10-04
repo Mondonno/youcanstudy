@@ -32,12 +32,28 @@ export function renderQuestionView(
   currentAnswer: any,
   onAnswer: (answer: any) => void,
   onNext: () => void,
-  onBack: () => void
+  onBack: () => void,
+  previousAnswer?: any
 ): HTMLElement {
   const progress = ((currentNum - 1) / total) * 100;
   const qCard = el('div', { class: 'card' });
   const qNumber = el('h2', null, `Question ${currentNum} of ${total}`);
   const qText = el('p', null, question.text);
+
+  // Show previous answer if available
+  if (previousAnswer !== undefined) {
+    const prevText =
+      question.type === 'likert5'
+        ? `Last time: ${['Never', 'Rarely', 'Sometimes', 'Often', 'Always'][previousAnswer - 1]}`
+        : `Last time: ${previousAnswer}`;
+    const prevLabel = el('p', { class: 'subtitle', style: 'font-style: italic; color: #7c3aed;' }, prevText);
+    qCard.appendChild(qNumber);
+    qCard.appendChild(qText);
+    qCard.appendChild(prevLabel);
+  } else {
+    qCard.appendChild(qNumber);
+    qCard.appendChild(qText);
+  }
 
   // Create input according to type
   let inputNode: HTMLElement;
@@ -117,8 +133,6 @@ export function renderQuestionView(
   );
   controls.appendChild(nextBtn);
 
-  qCard.appendChild(qNumber);
-  qCard.appendChild(qText);
   qCard.appendChild(inputNode);
   qCard.appendChild(bar);
   qCard.appendChild(controls);
@@ -137,22 +151,23 @@ export function renderResultsView(
   videos: VideoRec[],
   articles: ArticleRec[],
   onExport: () => void,
-  onCopyPrompt: () => void
+  onCopyPrompt: () => void,
+  onExportHistory?: () => void,
+  onImportHistory?: () => void
 ): HTMLElement {
   const resultCard = el('div', { class: 'card' });
   resultCard.appendChild(el('h1', null, 'Your Personalised Report'));
-  resultCard.appendChild(el('h2', null, `Overall Score: ${overall}%`));
 
   // Chart container
   const chartDiv = el('div', { class: 'chart-container' });
 
   // Create donut chart canvas
-  const donutCanvas = el('canvas', { width: '300', height: '300' }) as HTMLCanvasElement;
+  const donutCanvas = el('canvas', { width: '500', height: '500' }) as HTMLCanvasElement;
   chartDiv.appendChild(donutCanvas);
-  drawDonutChart(donutCanvas, scores);
+  drawDonutChart(donutCanvas, scores, overall);
 
   // Radar chart canvas
-  const radarCanvas = el('canvas', { width: '300', height: '300' }) as HTMLCanvasElement;
+  const radarCanvas = el('canvas', { width: '500', height: '500' }) as HTMLCanvasElement;
   chartDiv.appendChild(radarCanvas);
   drawRadarChart(radarCanvas, scores);
 
@@ -237,10 +252,30 @@ export function renderResultsView(
 
   // Export and copy section
   const exportDiv = el('div', { class: 'export-buttons' });
-  const exportBtn = el('button', { class: 'button', onclick: onExport }, 'Export JSON');
+  const exportBtn = el('button', { class: 'button', onclick: onExport }, 'Export Results');
   const copyBtn = el('button', { class: 'button', onclick: onCopyPrompt }, 'Copy LLM Prompt');
   exportDiv.appendChild(exportBtn);
   exportDiv.appendChild(copyBtn);
+  
+  // Add history export/import buttons if callbacks provided
+  if (onExportHistory) {
+    const exportHistoryBtn = el(
+      'button',
+      { class: 'button', onclick: onExportHistory },
+      'Export History'
+    );
+    exportDiv.appendChild(exportHistoryBtn);
+  }
+  
+  if (onImportHistory) {
+    const importHistoryBtn = el(
+      'button',
+      { class: 'button', onclick: onImportHistory },
+      'Import History'
+    );
+    exportDiv.appendChild(importHistoryBtn);
+  }
+  
   resultCard.appendChild(exportDiv);
 
   return resultCard;

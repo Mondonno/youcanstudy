@@ -6,6 +6,7 @@ import { computeScores } from './services/scoring.service.js';
 import { computeFlags } from './services/flags.service.js';
 import { selectOneThing, selectDomainActions, recommendVideos, recommendArticles, } from './services/recommendation.service.js';
 import { exportResultsAsJSON, generateLLMPrompt, copyToClipboard, } from './services/export.service.js';
+import { saveToHistory, getLatestEntry, exportHistory, importHistory, } from './services/history.service.js';
 import { renderIntroView, renderQuestionView, renderResultsView } from './views/app.views.js';
 import { clearElement } from './utils/dom.utils.js';
 /**
@@ -72,6 +73,9 @@ class LearningApp {
         if (this.answers[question.id] === undefined) {
             this.answers[question.id] = question.type === 'likert5' ? 3 : 'maybe';
         }
+        // Get previous answer if available
+        const latestEntry = getLatestEntry();
+        const previousAnswer = latestEntry?.results.answers[question.id];
         clearElement(this.root);
         const questionView = renderQuestionView(question, currentNum, total, this.answers[question.id], (answer) => {
             this.answers[question.id] = answer;
@@ -81,7 +85,7 @@ class LearningApp {
                 this.answers[question.id] = question.type === 'likert5' ? 3 : 'maybe';
             }
             this.showQuestion(index + 1);
-        }, () => this.showQuestion(index - 1));
+        }, () => this.showQuestion(index - 1), previousAnswer);
         this.root.appendChild(questionView);
     }
     /**
@@ -112,9 +116,16 @@ class LearningApp {
             recommendedVideos,
             recommendedArticles,
         };
+        // Save to history
+        try {
+            saveToHistory(results);
+        }
+        catch (error) {
+            console.error('Failed to save to history:', error);
+        }
         // Render results
         clearElement(this.root);
-        const resultsView = renderResultsView(scores, overall, oneThing, domainActions, recommendedVideos, recommendedArticles, () => this.handleExport(results), () => this.handleCopyPrompt(results));
+        const resultsView = renderResultsView(scores, overall, oneThing, domainActions, recommendedVideos, recommendedArticles, () => this.handleExport(results), () => this.handleCopyPrompt(results), () => this.handleExportHistory(), () => this.handleImportHistory());
         this.root.appendChild(resultsView);
     }
     /**
@@ -128,6 +139,46 @@ class LearningApp {
             console.error('Export failed:', error);
             alert('Failed to export results');
         }
+    }
+    /**
+     * Handle export history button click
+     */
+    handleExportHistory() {
+        try {
+            exportHistory();
+        }
+        catch (error) {
+            console.error('Export history failed:', error);
+            alert('Failed to export history');
+        }
+    }
+    /**
+     * Handle import history button click
+     */
+    handleImportHistory() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = (e) => {
+            const file = e.target.files?.[0];
+            if (!file)
+                return;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const jsonData = event.target?.result;
+                    importHistory(jsonData);
+                    alert('History imported successfully!');
+                    // Optionally reload the page to show updated history
+                }
+                catch (error) {
+                    console.error('Import failed:', error);
+                    alert('Failed to import history. Please check the file format.');
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
     }
     /**
      * Handle copy prompt button click

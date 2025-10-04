@@ -17,6 +17,12 @@ import {
   generateLLMPrompt,
   copyToClipboard,
 } from './services/export.service.js';
+import {
+  saveToHistory,
+  getLatestEntry,
+  exportHistory,
+  importHistory,
+} from './services/history.service.js';
 import { renderIntroView, renderQuestionView, renderResultsView } from './views/app.views.js';
 import { clearElement } from './utils/dom.utils.js';
 
@@ -92,6 +98,10 @@ class LearningApp {
       this.answers[question.id] = question.type === 'likert5' ? 3 : 'maybe';
     }
 
+    // Get previous answer if available
+    const latestEntry = getLatestEntry();
+    const previousAnswer = latestEntry?.results.answers[question.id];
+
     clearElement(this.root);
     const questionView = renderQuestionView(
       question,
@@ -108,7 +118,8 @@ class LearningApp {
         }
         this.showQuestion(index + 1);
       },
-      () => this.showQuestion(index - 1)
+      () => this.showQuestion(index - 1),
+      previousAnswer
     );
 
     this.root.appendChild(questionView);
@@ -150,6 +161,13 @@ class LearningApp {
       recommendedArticles,
     };
 
+    // Save to history
+    try {
+      saveToHistory(results);
+    } catch (error) {
+      console.error('Failed to save to history:', error);
+    }
+
     // Render results
     clearElement(this.root);
     const resultsView = renderResultsView(
@@ -160,7 +178,9 @@ class LearningApp {
       recommendedVideos,
       recommendedArticles,
       () => this.handleExport(results),
-      () => this.handleCopyPrompt(results)
+      () => this.handleCopyPrompt(results),
+      () => this.handleExportHistory(),
+      () => this.handleImportHistory()
     );
 
     this.root.appendChild(resultsView);
@@ -176,6 +196,46 @@ class LearningApp {
       console.error('Export failed:', error);
       alert('Failed to export results');
     }
+  }
+
+  /**
+   * Handle export history button click
+   */
+  private handleExportHistory(): void {
+    try {
+      exportHistory();
+    } catch (error) {
+      console.error('Export history failed:', error);
+      alert('Failed to export history');
+    }
+  }
+
+  /**
+   * Handle import history button click
+   */
+  private handleImportHistory(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const jsonData = event.target?.result as string;
+          importHistory(jsonData);
+          alert('History imported successfully!');
+          // Optionally reload the page to show updated history
+        } catch (error) {
+          console.error('Import failed:', error);
+          alert('Failed to import history. Please check the file format.');
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
   }
 
   /**

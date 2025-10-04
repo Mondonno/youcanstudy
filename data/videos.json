@@ -2,7 +2,7 @@
   {
     "id": "vid-priming-basics",
     "title": "Why Priming Matters and How To Do It",
-    "url": "https://www.youtube.com/watch?v=priming_basics",
+    "url": "https://www.youtube.com/results?search_query=priming+learning+technique+activation",
     "maps_to": ["low_priming", "needs_big_picture"],
     "tldr": "Explains pre-exposure, activating prior knowledge and brain-dump techniques to reduce cognitive overload.",
     "duration_minutes": 6
@@ -10,7 +10,7 @@
   {
     "id": "vid-retrieval-practice",
     "title": "Retrieval Practice: The Most Powerful Learning Strategy",
-    "url": "https://www.youtube.com/watch?v=retrieval_practice",
+    "url": "https://www.youtube.com/results?search_query=retrieval+practice+learning+strategy",
     "maps_to": ["low_retrieval", "overlearning_early", "weak_languages"],
     "tldr": "Demonstrates how low-stakes quizzes and spaced recall boost memory and understanding.",
     "duration_minutes": 8
@@ -18,7 +18,7 @@
   {
     "id": "vid-concept-maps",
     "title": "Organising Ideas with Concept Maps",
-    "url": "https://www.youtube.com/watch?v=concept_maps",
+    "url": "https://www.youtube.com/results?search_query=concept+mapping+note+taking",
     "maps_to": ["weak_reference", "linear_notes"],
     "tldr": "Shows how non-linear note-taking structures can reduce rote memorisation and enhance comprehension.",
     "duration_minutes": 5
@@ -26,7 +26,7 @@
   {
     "id": "vid-spacing-effect",
     "title": "Spacing vs Cramming: Save Time and Remember More",
-    "url": "https://www.youtube.com/watch?v=spacing_effect",
+    "url": "https://www.youtube.com/results?search_query=spacing+effect+spaced+repetition",
     "maps_to": ["low_retrieval", "overlearning_early"],
     "tldr": "Explains why spaced practice outperforms massed practice and gives simple scheduling tips.",
     "duration_minutes": 7
@@ -34,7 +34,7 @@
   {
     "id": "vid-analogies",
     "title": "Using Analogies to Make Learning Intuitive",
-    "url": "https://www.youtube.com/watch?v=using_analogies",
+    "url": "https://www.youtube.com/results?search_query=analogies+learning+understanding",
     "maps_to": ["low_priming", "needs_big_picture", "weak_languages"],
     "tldr": "Highlights research showing analogies connect new ideas to prior knowledge and deepen understanding.",
     "duration_minutes": 4
@@ -42,7 +42,7 @@
   {
     "id": "vid-growth-mindset",
     "title": "Growth Mindset: Believe You Can Learn Anything",
-    "url": "https://www.youtube.com/watch?v=growth_mindset",
+    "url": "https://www.youtube.com/results?search_query=growth+mindset+neuroplasticity",
     "maps_to": ["risk_fixed_mindset"],
     "tldr": "Discusses the science of neuroplasticity and how intelligence can be developed through effort.",
     "duration_minutes": 6

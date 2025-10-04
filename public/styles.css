@@ -127,20 +127,24 @@ input[type="range"]::-moz-range-thumb {
 /* Styles for charts */
 .chart-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .chart-container canvas {
   max-width: 100%;
   height: auto;
   display: block;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .export-buttons {
