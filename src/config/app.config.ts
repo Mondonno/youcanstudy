@@ -2,13 +2,17 @@
  * Application configuration and constants
  */
 
+// Get base URL from Vite (respects base path config)
+// In production this will be '/youcanstudy/', in dev it's '/'
+const BASE_URL = import.meta.env.BASE_URL;
+
 export const APP_CONFIG = {
   // Data source paths
   DATA_PATHS: {
-    CORE_QUESTIONS: '/data/questions-core.json',
-    META_QUESTIONS: '/data/questions-meta.json',
-    VIDEOS: '/data/videos.json',
-    ARTICLES: '/data/articles.json',
+    CORE_QUESTIONS: `${BASE_URL}data/questions-core.json`,
+    META_QUESTIONS: `${BASE_URL}data/questions-meta.json`,
+    VIDEOS: `${BASE_URL}data/videos.json`,
+    ARTICLES: `${BASE_URL}data/articles.json`,
   },
 
   // Domain weights for overall score calculation
