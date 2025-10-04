@@ -29,8 +29,8 @@
     "maps_to": ["low_retrieval", "overlearning_early"],
     "est_minutes": 7,
     "tldr": [
-      "Shows that spaced practice does not require more time than cramming but yields much better retention【554216430977859†L67-L95】.",
-      "Experiment with primary school students found that spacing reduces working memory depletion and improves performance【554216430977859†L173-L178】.",
+      "Shows that spaced practice does not require more time than cramming but yields much better retention.",
+      "Experiment with primary school students found that spacing reduces working memory depletion and improves performance.",
       "Recommends scheduling brief retrieval sessions across days instead of massed study."
     ],
     "try_tomorrow": [
@@ -49,8 +49,8 @@
     "maps_to": ["low_retrieval", "weak_reference", "linear_notes"],
     "est_minutes": 5,
     "tldr": [
-      "Reports experiments showing students who practiced retrieval outperformed those who created concept maps on tests of meaningful learning【560033971467502†L295-L309】.",
-      "Retrieval practice strengthens memory and facilitates transfer to new contexts【560033971467502†L295-L309】.",
+      "Reports experiments showing students who practiced retrieval outperformed those who created concept maps on tests of meaningful learning.",
+      "Retrieval practice strengthens memory and facilitates transfer to new contexts.",
       "Highlights that elaborative studying alone is insufficient without active recall."
     ],
     "try_tomorrow": [
@@ -69,8 +69,8 @@
     "maps_to": ["low_retrieval", "overlearning_early", "low_resourcefulness"],
     "est_minutes": 6,
     "tldr": [
-      "Explains how interleaving problems and topics helps learners differentiate between problem types and promotes transfer【999445851119787†L23-L38】.",
-      "Suggests incorporating cumulative quizzes and integrated projects to encourage interleaved practice【999445851119787†L23-L38】.",
+      "Explains how interleaving problems and topics helps learners differentiate between problem types and promotes transfer.",
+      "Suggests incorporating cumulative quizzes and integrated projects to encourage interleaved practice.",
       "Highlights that mixing topics yields higher performance than blocked practice."
     ],
     "try_tomorrow": [
@@ -89,7 +89,7 @@
     "maps_to": ["needs_big_picture", "low_priming", "weak_languages"],
     "est_minutes": 5,
     "tldr": [
-      "Describes research showing analogies help students connect new information to prior knowledge and improve comprehension【699215777082179†L85-L113】.",
+      "Describes research showing analogies help students connect new information to prior knowledge and improve comprehension.",
       "Suggests teachers deliberately select analogies that are familiar to learners to enhance memory.",
       "Encourages students to generate their own analogies to make abstract concepts intuitive."
     ],

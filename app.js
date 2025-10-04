@@ -103,10 +103,13 @@ class LearningApp {
             return;
         }
         this.root.innerHTML = '';
-        const total = !this.isMetaPhase ? this.coreQuestions.length : this.metaQuestions.length;
-        const progress = ((index) / total) * 100;
+        const total = this.coreQuestions.length + this.metaQuestions.length;
+        const currentQuestionNumber = !this.isMetaPhase
+            ? index + 1
+            : this.coreQuestions.length + index + 1;
+        const progress = ((currentQuestionNumber - 1) / total) * 100;
         const qCard = el('div', { class: 'card' });
-        const qNumber = el('h2', null, `Question ${index + 1} of ${total}`);
+        const qNumber = el('h2', null, `Question ${currentQuestionNumber} of ${total}`);
         const qText = el('p', null, question.text);
         // Create input according to type
         let inputNode;
@@ -159,7 +162,7 @@ class LearningApp {
         const bar = el('div', { class: 'progress-bar' }, el('div', { class: 'progress-bar-inner', style: `width: ${progress}%` }));
         // Buttons
         const controls = el('div', { style: 'margin-top:1rem; display:flex; justify-content: space-between;' });
-        if (index > 0) {
+        if (currentQuestionNumber > 1) {
             const backBtn = el('button', {
                 class: 'button',
                 onclick: () => this.showQuestion(index - 1),
@@ -169,6 +172,7 @@ class LearningApp {
         else {
             controls.appendChild(el('div', null));
         }
+        const isLastQuestion = currentQuestionNumber === total;
         const nextBtn = el('button', {
             class: 'button',
             onclick: () => {
@@ -181,7 +185,7 @@ class LearningApp {
                 }
                 this.showQuestion(index + 1);
             },
-        }, index + 1 === total ? 'Finish' : 'Next');
+        }, isLastQuestion ? 'Finish' : 'Next');
         controls.appendChild(nextBtn);
         qCard.appendChild(qNumber);
         qCard.appendChild(qText);

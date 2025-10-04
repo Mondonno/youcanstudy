@@ -64,6 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Range input styling for modern browsers */
 input[type="range"] {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 0.5rem;
   border-radius: 0.25rem;
@@ -130,6 +131,16 @@ input[type="range"]::-moz-range-thumb {
   margin: 0 auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.chart-container canvas {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .export-buttons {
