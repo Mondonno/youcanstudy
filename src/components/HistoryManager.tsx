@@ -128,8 +128,8 @@ const HistoryManager: React.FC<HistoryManagerProps> = ({ onReturnToIntro, onView
 
       {history.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: '2rem' }}>
-          <h3>No History Yet</h3>
-          <p>Take the quiz to create your first history entry, or import existing history.</p>
+          <h3>No quiz history</h3>
+          <p>Take the diagnostic to create your first history entry, or import existing history.</p>
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '1rem' }}>

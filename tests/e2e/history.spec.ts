@@ -50,8 +50,8 @@ test.describe('History Management', () => {
     // View history
     await page.getByRole('button', { name: /view history/i }).click();
     
-    // Should see history entries
-    await expect(page.getByRole('heading', { name: /quiz history/i })).toBeVisible();
+    // Should see history page heading (use exact match to avoid conflict with "No quiz history")
+    await expect(page.getByRole('heading', { name: 'Quiz History', exact: true })).toBeVisible();
     
     // Should see at least one entry
     const entryCount = await page.locator('.card').count();
@@ -62,8 +62,8 @@ test.describe('History Management', () => {
     await page.goto('/');
     await page.getByRole('button', { name: /view history/i }).click();
     
-    // Should see empty state
-    await expect(page.getByText(/no quiz history/i)).toBeVisible();
+    // Should see empty state (use heading role to avoid ambiguity)
+    await expect(page.getByRole('heading', { name: /no quiz history/i })).toBeVisible();
   });
 
   test('should display multiple history entries', async ({ page }) => {
@@ -157,7 +157,7 @@ test.describe('History Management', () => {
       });
       
       expect(historyData).toEqual([]);
-      await expect(page.getByText(/no quiz history/i)).toBeVisible();
+      await expect(page.getByRole('heading', { name: /no quiz history/i })).toBeVisible();
     }
   });
 
@@ -201,14 +201,12 @@ test.describe('History Management', () => {
     await completeQuizQuickly(page);
     await page.getByRole('button', { name: /view history/i }).click();
     
-    // Go back to intro
-    const backButton = page.getByRole('button', { name: /back to intro/i });
-    if (await backButton.count() > 0) {
-      await backButton.click();
-      
-      // Should be on intro page
-      await expect(page.getByRole('heading', { name: /learning diagnostic/i })).toBeVisible();
-    }
+    // Go back to intro (button says "Back to Home")
+    const backButton = page.getByRole('button', { name: /back to home/i });
+    await backButton.click();
+    
+    // Should be on intro page
+    await expect(page.getByRole('heading', { name: /learning diagnostic/i })).toBeVisible();
   });
 
   test('should limit history entries to maximum allowed', async ({ page }) => {

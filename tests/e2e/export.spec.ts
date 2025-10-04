@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import path from 'path';
+import fs from 'fs';
 
 /**
  * E2E Test: Export Functionality
@@ -79,7 +80,6 @@ test.describe('Export Functionality', () => {
     await download.saveAs(downloadPath);
     
     // Read and verify JSON content
-    const fs = require('fs');
     const content = fs.readFileSync(downloadPath, 'utf-8');
     const data = JSON.parse(content);
     
@@ -121,17 +121,24 @@ test.describe('Export Functionality', () => {
     await page.getByRole('button', { name: /view history/i }).click();
     
     // Should see empty history message
-    await expect(page.getByText(/no quiz history/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: /no quiz history/i })).toBeVisible();
     
-    // Import the JSON file
-    const fileInput = page.locator('input[type="file"]');
-    await fileInput.setInputFiles(downloadPath);
+    // Import the JSON file by clicking the import button and handling the file chooser
+    const fileChooserPromise = page.waitForEvent('filechooser');
+    await page.getByRole('button', { name: /import history/i }).click();
+    const fileChooser = await fileChooserPromise;
+    await fileChooser.setFiles(downloadPath);
     
-    // Wait for import to complete
+    // Wait for import to complete and alert
+    page.once('dialog', async (dialog) => {
+      expect(dialog.message()).toContain('imported successfully');
+      await dialog.accept();
+    });
+    
     await page.waitForTimeout(500);
     
     // History should now show the imported entry
-    await expect(page.getByText(/no quiz history/i)).not.toBeVisible();
+    await expect(page.getByRole('heading', { name: /no quiz history/i })).not.toBeVisible();
     
     // Verify the entry exists
     const historyData = await page.evaluate(() => {
@@ -144,7 +151,6 @@ test.describe('Export Functionality', () => {
     expect(historyData[0].results.scores.encoding).toBeDefined();
     
     // Clean up
-    const fs = require('fs');
     fs.unlinkSync(downloadPath);
   });
 

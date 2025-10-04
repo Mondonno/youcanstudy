@@ -54,11 +54,12 @@ test.describe('Quiz Flow', () => {
     await expect(page.getByRole('heading', { name: /domain-specific actions/i })).toBeVisible();
     
     // Step 7: Verify all domain scores are displayed (including encoding!)
-    await expect(page.getByText(/priming/i)).toBeVisible();
-    await expect(page.getByText(/encoding/i)).toBeVisible();
-    await expect(page.getByText(/reference/i)).toBeVisible();
-    await expect(page.getByText(/retrieval/i)).toBeVisible();
-    await expect(page.getByText(/overlearning/i)).toBeVisible();
+    // Match the exact format of domain headings which include scores: "Priming (50%)"
+    await expect(page.getByRole('heading', { name: /priming \(\d+%\)/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /encoding \(\d+%\)/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /reference \(\d+%\)/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /retrieval \(\d+%\)/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /overlearning \(\d+%\)/i })).toBeVisible();
     
     // Step 8: Verify action buttons are present
     await expect(page.getByRole('button', { name: /export results/i })).toBeVisible();
@@ -99,26 +100,42 @@ test.describe('Quiz Flow', () => {
     await page.goto('/');
     await page.getByRole('button', { name: /start diagnostic/i }).click();
     
-    // Answer first few questions
+    // Answer first few questions with specific values
     await page.locator('input[type="range"]').first().fill('5');
     await page.getByRole('button', { name: /next/i }).click();
     
     await page.locator('input[type="range"]').first().fill('4');
     await page.getByRole('button', { name: /next/i }).click();
     
-    // Quickly finish quiz (click through)
+    // Quickly finish the rest of the quiz
     for (let i = 2; i < 39; i++) {
+      const hasSlider = await page.locator('input[type="range"]').count();
+      const hasRadio = await page.locator('input[type="radio"]').count();
+      
+      if (hasSlider > 0) {
+        await page.locator('input[type="range"]').first().fill('3');
+      } else if (hasRadio > 0) {
+        await page.locator('input[type="radio"]').first().check();
+      }
+      
       await page.getByRole('button', { name: i === 38 ? /finish/i : /next/i }).click();
     }
     
     // Wait for results
     await expect(page.getByRole('heading', { name: /personalised report/i })).toBeVisible();
     
-    // Start quiz again
+    // Start quiz again - this takes us back to intro first
     await page.getByRole('button', { name: /take quiz again/i }).click();
     
-    // Should see "Last time" indicator on first question
-    await expect(page.getByText(/last time/i)).toBeVisible();
+    // Now we're back at intro, start the quiz
+    await expect(page.getByRole('heading', { name: /learning diagnostic/i })).toBeVisible();
+    await page.getByRole('button', { name: /start diagnostic/i }).click();
+    
+    // Wait for first question to load
+    await expect(page.getByText(/question 1 of/i)).toBeVisible();
+    
+    // Should see "Last time" indicator showing "Always" (value 5)
+    await expect(page.getByText(/last time.*always/i)).toBeVisible();
   });
 
   test('should handle different answer types correctly', async ({ page }) => {

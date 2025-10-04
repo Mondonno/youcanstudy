@@ -19,7 +19,7 @@ const IntroView: React.FC<IntroViewProps> = ({ onStartQuiz, onShowHistory }) => 
       </p>
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <button className="button" onClick={onStartQuiz}>
-          Start Quiz
+          Start Diagnostic
         </button>
         <button className="button" onClick={onShowHistory} style={{ backgroundColor: '#6366f1' }}>
           View History
