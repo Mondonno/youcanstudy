@@ -8,7 +8,7 @@ import { APP_CONFIG } from '../config/app.config.js';
 /**
  * Score an individual answer (0-100)
  */
-export function scoreAnswer(question: Question, answer: any): number {
+export function scoreAnswer(question: Question, answer: number | string): number {
   let value = 0;
 
   if (question.type === 'likert5') {

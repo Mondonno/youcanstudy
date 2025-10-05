@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * E2E Test: History Management
@@ -10,7 +10,7 @@ test.describe('History Management', () => {
     await page.evaluate(() => localStorage.clear());
   });
 
-  async function completeQuizQuickly(page: any, answerValue: number = 3) {
+  async function completeQuizQuickly(page: Page, answerValue: number = 3) {
     await page.getByRole('button', { name: /start diagnostic/i }).click();
     
     for (let i = 0; i < 39; i++) {

@@ -9,13 +9,13 @@ import {
   recommendVideos,
   recommendArticles,
 } from '../../src/services/recommendation.service';
-import { mockVideos, mockArticles, mockScores } from '../fixtures/mock-data';
+import { mockVideos, mockArticles } from '../fixtures/mock-data';
 
 describe('Recommendation Service', () => {
   describe('selectOneThing', () => {
     it('should recommend priming routine for low_priming flag', () => {
       const flags = ['low_priming'];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       expect(oneThing.title).toContain('Priming');
       expect(oneThing.steps).toBeDefined();
@@ -24,42 +24,42 @@ describe('Recommendation Service', () => {
 
     it('should recommend retrieval for low_retrieval flag', () => {
       const flags = ['low_retrieval'];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       expect(oneThing.title).toContain('Retrieval');
     });
 
     it('should recommend concept maps for weak_reference flag', () => {
       const flags = ['weak_reference'];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       expect(oneThing.title).toContain('Concept-Map');
     });
 
     it('should recommend concept maps for linear_notes flag', () => {
       const flags = ['linear_notes'];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       expect(oneThing.title).toContain('Concept-Map');
     });
 
     it('should recommend growth mindset for risk_fixed_mindset flag', () => {
       const flags = ['risk_fixed_mindset'];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       expect(oneThing.title).toContain('Growth Mindset');
     });
 
     it('should provide default recommendation for no flags', () => {
       const flags: string[] = [];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       expect(oneThing.title).toContain('Interleaving');
     });
 
     it('should prioritize flags correctly', () => {
       const flags = ['low_priming', 'low_retrieval', 'weak_reference'];
-      const oneThing = selectOneThing(flags, mockScores);
+      const oneThing = selectOneThing(flags);
       
       // low_priming should be highest priority
       expect(oneThing.title).toContain('Priming');
@@ -68,7 +68,7 @@ describe('Recommendation Service', () => {
 
   describe('selectDomainActions', () => {
     it('should return actions for all core domains', () => {
-      const actions = selectDomainActions(mockScores);
+      const actions = selectDomainActions();
       
       expect(actions.priming).toBeDefined();
       expect(actions.encoding).toBeDefined();
@@ -78,7 +78,7 @@ describe('Recommendation Service', () => {
     });
 
     it('should return arrays of action strings', () => {
-      const actions = selectDomainActions(mockScores);
+      const actions = selectDomainActions();
       
       expect(Array.isArray(actions.priming)).toBe(true);
       expect(actions.priming.length).toBeGreaterThan(0);
@@ -86,7 +86,7 @@ describe('Recommendation Service', () => {
     });
 
     it('should provide multiple actions per domain', () => {
-      const actions = selectDomainActions(mockScores);
+      const actions = selectDomainActions();
       
       for (const domain of ['priming', 'encoding', 'reference', 'retrieval', 'overlearning']) {
         expect(actions[domain].length).toBeGreaterThanOrEqual(3);

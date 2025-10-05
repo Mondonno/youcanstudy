@@ -82,8 +82,8 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
 
       {/* Charts */}
       <div className="chart-container">
-        <canvas ref={donutCanvasRef} width="500" height="500"></canvas>
-        <canvas ref={radarCanvasRef} width="500" height="500"></canvas>
+        <canvas ref={donutCanvasRef} width="750" height="500"></canvas>
+        <canvas ref={radarCanvasRef} width="750" height="500"></canvas>
       </div>
 
       {/* One Thing */}

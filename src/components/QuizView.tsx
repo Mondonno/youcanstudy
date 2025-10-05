@@ -38,7 +38,7 @@ const QuizView: React.FC<QuizViewProps> = ({ appData, onComplete, onCancel }) =>
     }
   }, [question, answers]);
 
-  const handleAnswer = (answer: any) => {
+  const handleAnswer = (answer: number | string) => {
     if (!question) return;
     setAnswers((prev) => ({
       ...prev,

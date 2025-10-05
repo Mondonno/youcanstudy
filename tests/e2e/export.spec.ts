@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import path from 'path';
 import fs from 'fs';
 
@@ -12,7 +12,7 @@ test.describe('Export Functionality', () => {
     await page.evaluate(() => localStorage.clear());
   });
 
-  async function completeQuiz(page: any) {
+  async function completeQuiz(page: Page) {
     await page.getByRole('button', { name: /start diagnostic/i }).click();
     
     // Quickly complete the quiz
@@ -110,8 +110,7 @@ test.describe('Export Functionality', () => {
     const download = await downloadPromise;
     
     // Save the file
-    const downloadPath = path.join('/tmp', download.suggestedFilename());
-    await download.saveAs(downloadPath);
+    const downloadPath = await download.path();
     
     // Clear history
     await page.evaluate(() => localStorage.clear());
@@ -151,7 +150,7 @@ test.describe('Export Functionality', () => {
     expect(historyData[0].results.scores.encoding).toBeDefined();
     
     // Clean up
-    fs.unlinkSync(downloadPath);
+    // Note: download.path() returns a temp file, but we'll leave it for Playwright to clean up
   });
 
   test('should trigger PDF print dialog when clicking export PDF', async ({ page }) => {

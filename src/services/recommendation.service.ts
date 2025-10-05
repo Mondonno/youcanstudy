@@ -2,13 +2,13 @@
  * Recommendation service - generates personalized recommendations
  */
 
-import type { VideoRec, ArticleRec, OneThing, Scores } from '../models/types.js';
+import type { VideoRec, ArticleRec, OneThing } from '../models/types.js';
 import { APP_CONFIG } from '../config/app.config.js';
 
 /**
  * Select the one thing to focus on based on flags and scores
  */
-export function selectOneThing(flags: string[], _scores: Scores): OneThing {
+export function selectOneThing(flags: string[]): OneThing {
   // Primary priority: low priming
   if (flags.includes('low_priming')) {
     return {
@@ -81,7 +81,7 @@ export function selectOneThing(flags: string[], _scores: Scores): OneThing {
 /**
  * Generate domain-specific action recommendations
  */
-export function selectDomainActions(_scores: Scores): Record<string, string[]> {
+export function selectDomainActions(): Record<string, string[]> {
   const actions: Record<string, string[]> = {};
 
   actions['priming'] = [

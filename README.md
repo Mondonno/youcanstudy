@@ -143,10 +143,10 @@ npm run format       # Format code with Prettier
 
 ## 📚 Documentation
 
-- **[QUICK_START.md](QUICK_START.md)** - Getting started guide
-- **[REACT_MIGRATION.md](REACT_MIGRATION.md)** - React migration details
-- **[FINAL_SUMMARY.md](FINAL_SUMMARY.md)** - All fixes and resolved issues
-- **[CLEANUP.md](CLEANUP.md)** - Repository cleanup notes
+- **[QUICK_START.md](docs/guides/QUICK_START.md)** - Getting started guide
+- **[REACT_MIGRATION.md](docs/migration/REACT_MIGRATION.md)** - React migration details
+- **[FINAL_SUMMARY.md](docs/summaries/FINAL_SUMMARY.md)** - All fixes and resolved issues
+- **[CLEANUP.md](docs/maintenance/CLEANUP.md)** - Repository cleanup notes
 
 ## 🔧 Configuration
 

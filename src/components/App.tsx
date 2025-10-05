@@ -61,8 +61,8 @@ const App: React.FC = () => {
     const flags = computeFlags(scores, metaScores, finalAnswers, allQuestions);
 
     // Generate recommendations
-    const oneThing = selectOneThing(flags, scores);
-    const domainActions = selectDomainActions(scores);
+    const oneThing = selectOneThing(flags);
+    const domainActions = selectDomainActions();
     const recommendedVideos = recommendVideos(appData.videos, flags);
     const recommendedArticles = recommendArticles(appData.articles, flags);
 

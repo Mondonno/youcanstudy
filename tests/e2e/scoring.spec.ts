@@ -114,7 +114,7 @@ test.describe('Scoring Validation', () => {
     expect(scores.overlearning).toBeDefined();
     
     // Scores should be between 0 and 100
-    Object.values(scores).forEach((score: any) => {
+    (Object.values(scores) as number[]).forEach((score: number) => {
       expect(score).toBeGreaterThanOrEqual(0);
       expect(score).toBeLessThanOrEqual(100);
     });

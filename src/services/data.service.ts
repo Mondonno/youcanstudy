@@ -8,58 +8,58 @@ import { APP_CONFIG } from '../config/app.config.js';
 /**
  * Validate a question object
  */
-export function validateQuestion(q: any): q is Question {
+export function validateQuestion(q: unknown): q is Question {
+  if (typeof q !== 'object' || q === null) return false;
+  const obj = q as Record<string, unknown>;
   return (
-    typeof q === 'object' &&
-    q !== null &&
-    typeof q.id === 'string' &&
-    typeof q.text === 'string' &&
-    (q.type === 'likert5' || q.type === 'ynm') &&
-    typeof q.domain === 'string' &&
-    (q.reverse === undefined || typeof q.reverse === 'boolean')
+    typeof obj.id === 'string' &&
+    typeof obj.text === 'string' &&
+    (obj.type === 'likert5' || obj.type === 'ynm') &&
+    typeof obj.domain === 'string' &&
+    (obj.reverse === undefined || typeof obj.reverse === 'boolean')
   );
 }
 
 /**
  * Validate a video recommendation object
  */
-export function validateVideo(v: any): v is VideoRec {
+export function validateVideo(v: unknown): v is VideoRec {
+  if (typeof v !== 'object' || v === null) return false;
+  const obj = v as Record<string, unknown>;
   return (
-    typeof v === 'object' &&
-    v !== null &&
-    typeof v.id === 'string' &&
-    typeof v.title === 'string' &&
-    typeof v.url === 'string' &&
-    Array.isArray(v.maps_to) &&
-    typeof v.tldr === 'string' &&
-    typeof v.duration_minutes === 'number'
+    typeof obj.id === 'string' &&
+    typeof obj.title === 'string' &&
+    typeof obj.url === 'string' &&
+    Array.isArray(obj.maps_to) &&
+    typeof obj.tldr === 'string' &&
+    typeof obj.duration_minutes === 'number'
   );
 }
 
 /**
  * Validate an article recommendation object
  */
-export function validateArticle(a: any): a is ArticleRec {
+export function validateArticle(a: unknown): a is ArticleRec {
+  if (typeof a !== 'object' || a === null) return false;
+  const obj = a as Record<string, unknown>;
   return (
-    typeof a === 'object' &&
-    a !== null &&
-    typeof a.id === 'string' &&
-    typeof a.title === 'string' &&
-    typeof a.authors === 'string' &&
-    typeof a.year === 'number' &&
-    typeof a.source === 'string' &&
-    typeof a.url === 'string' &&
-    Array.isArray(a.maps_to) &&
-    typeof a.est_minutes === 'number' &&
-    Array.isArray(a.tldr) &&
-    Array.isArray(a.try_tomorrow)
+    typeof obj.id === 'string' &&
+    typeof obj.title === 'string' &&
+    typeof obj.authors === 'string' &&
+    typeof obj.year === 'number' &&
+    typeof obj.source === 'string' &&
+    typeof obj.url === 'string' &&
+    Array.isArray(obj.maps_to) &&
+    typeof obj.est_minutes === 'number' &&
+    Array.isArray(obj.tldr) &&
+    Array.isArray(obj.try_tomorrow)
   );
 }
 
 /**
  * Fetch and validate JSON data
  */
-async function fetchJSON<T>(url: string, validator: (item: any) => boolean): Promise<T[]> {
+async function fetchJSON<T>(url: string, validator: (item: unknown) => boolean): Promise<T[]> {
   try {
     const response = await fetch(url);
     if (!response.ok) {

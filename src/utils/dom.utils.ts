@@ -7,7 +7,7 @@
  */
 export function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
-  attrs: { [key: string]: any } | null,
+  attrs: { [key: string]: unknown } | null,
   ...children: (Node | string | null | undefined)[]
 ): HTMLElementTagNameMap[K] {
   const element = document.createElement(tag);
@@ -15,14 +15,15 @@ export function el<K extends keyof HTMLElementTagNameMap>(
   if (attrs) {
     for (const key of Object.keys(attrs)) {
       const val = attrs[key];
-      if (key === 'class' && val) {
+      if (key === 'class' && typeof val === 'string') {
         element.className = val;
-      } else if (key === 'style' && val) {
+      } else if (key === 'style' && typeof val === 'string') {
         element.setAttribute('style', val);
       } else if (key.startsWith('on') && typeof val === 'function') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (element as any)[key.toLowerCase()] = val;
       } else if (val !== null && val !== undefined) {
-        element.setAttribute(key, val);
+        element.setAttribute(key, String(val));
       }
     }
   }
