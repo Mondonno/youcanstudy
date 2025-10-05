@@ -12,6 +12,9 @@ export function drawDonutChart(canvas: HTMLCanvasElement, scores: Scores, overal
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   const domains = APP_CONFIG.CORE_DOMAINS;
   const values = domains.map((d) => scores[d] ?? 0);
   const total = values.reduce((a, b) => a + b, 0);
@@ -89,6 +92,9 @@ export function drawDonutChart(canvas: HTMLCanvasElement, scores: Scores, overal
 export function drawRadarChart(canvas: HTMLCanvasElement, scores: Scores): void {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
+
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const domains = APP_CONFIG.CORE_DOMAINS;
   const values = domains.map((d) => (scores[d] ?? 0) / 100);

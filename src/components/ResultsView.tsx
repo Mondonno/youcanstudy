@@ -25,12 +25,23 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
   const [showExportModal, setShowExportModal] = useState(false);
 
   useEffect(() => {
-    if (donutCanvasRef.current) {
-      drawDonutChart(donutCanvasRef.current, results.scores, results.overall);
-    }
-    if (radarCanvasRef.current) {
-      drawRadarChart(radarCanvasRef.current, results.scores);
-    }
+    const handleResize = () => {
+      if (donutCanvasRef.current) {
+        drawDonutChart(donutCanvasRef.current, results.scores, results.overall);
+      }
+      if (radarCanvasRef.current) {
+        drawRadarChart(radarCanvasRef.current, results.scores);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Initial draw
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [results]);
 
   const handleExportClick = () => {
@@ -88,7 +99,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
 
       {/* One Thing */}
       <div className="card">
-        <h2>The One Thing</h2>
+        <h2>The One Thing You Can Do Now!</h2>
         <h3>{results.oneThing.title}</h3>
         <p>{results.oneThing.description}</p>
         <ul className="info-list">
