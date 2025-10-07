@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import type { DiagnosticResults } from '../models/types';
 import type { HistoryEntry } from '../services/history.service';
+import { getScoreSummaryFromEntry } from '../utils/history.utils';
 import {
   getHistory,
   deleteEntry,
@@ -93,10 +94,9 @@ const HistoryManager: React.FC<HistoryManagerProps> = ({ onReturnToIntro, onView
   };
 
   const getScoreSummary = (entry: HistoryEntry) => {
-    const scores = entry.results.scores;
-    const domains = Object.keys(scores);
-    const avgScore = domains.reduce((sum, d) => sum + (scores[d] ?? 0), 0) / domains.length;
-    return Math.round(avgScore);
+    const val = getScoreSummaryFromEntry(entry);
+    if (val === null) return null;
+    return val;
   };
 
   return (
@@ -157,7 +157,11 @@ const HistoryManager: React.FC<HistoryManagerProps> = ({ onReturnToIntro, onView
                       {new Date(entry.timestamp).toLocaleTimeString()}
                     </div>
                     <div style={{ marginTop: '0.5rem', color: '#7c3aed', fontWeight: 'bold' }}>
-                      Avg Score: {getScoreSummary(entry)}%
+                      {getScoreSummary(entry) === null ? (
+                        'Average score not available'
+                      ) : (
+                        <>Avg Score: {getScoreSummary(entry)}%</>
+                      )}
                     </div>
                   </div>
                 </div>
