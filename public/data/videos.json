@@ -2,6 +2,7 @@
   {
     "id": "vid-priming-basics",
     "title": "Why Priming Matters and How To Do It",
+    "reason": "Your low priming score suggests that you may not be adequately preparing your brain for new learning. Priming helps activate relevant prior knowledge and sets the stage for deeper understanding.",
     "url": "https://www.youtube.com/results?search_query=priming+learning+technique+activation",
     "maps_to": ["low_priming", "needs_big_picture"],
     "tldr": "Explains pre-exposure, activating prior knowledge and brain-dump techniques to reduce cognitive overload.",
@@ -9,6 +10,7 @@
   },
   {
     "id": "vid-retrieval-practice",
+    "reason": "Your low retrieval score indicates that you may not be effectively practicing recall, which is crucial for strengthening memory and identifying gaps in understanding.",
     "title": "Retrieval Practice: The Most Powerful Learning Strategy",
     "url": "https://www.youtube.com/results?search_query=retrieval+practice+learning+strategy",
     "maps_to": ["low_retrieval", "overlearning_early", "weak_languages"],
@@ -17,6 +19,7 @@
   },
   {
     "id": "vid-concept-maps",
+    "reason": "Your weak reference score and note-taking style suggest that you may benefit from moving away from linear transcription towards more visual and relational note-taking methods. This can enhance understanding and retention of complex information.",
     "title": "Organising Ideas with Concept Maps",
     "url": "https://www.youtube.com/results?search_query=concept+mapping+note+taking",
     "maps_to": ["weak_reference", "linear_notes"],
@@ -25,6 +28,7 @@
   },
   {
     "id": "vid-spacing-effect",
+    "reason": "Your low retrieval and overlearning scores suggest that incorporating spaced practice could enhance your learning by helping you differentiate between problem types and promoting better transfer of knowledge.",
     "title": "Spacing vs Cramming: Save Time and Remember More",
     "url": "https://www.youtube.com/results?search_query=spacing+effect+spaced+repetition",
     "maps_to": ["low_retrieval", "overlearning_early"],
@@ -33,6 +37,7 @@
   },
   {
     "id": "vid-analogies",
+    "reason": "Your need for seeing the big picture and low priming score suggest that using analogies could help you connect new information to familiar concepts, enhancing comprehension and retention.",
     "title": "Using Analogies to Make Learning Intuitive",
     "url": "https://www.youtube.com/results?search_query=analogies+learning+understanding",
     "maps_to": ["low_priming", "needs_big_picture", "weak_languages"],
@@ -41,6 +46,7 @@
   },
   {
     "id": "vid-growth-mindset",
+    "reason": "Your responses indicate a tendency towards a fixed mindset, which can limit your motivation and resilience in the face of challenges. Adopting a growth mindset can enhance your learning experience and outcomes.",
     "title": "Growth Mindset: Believe You Can Learn Anything",
     "url": "https://www.youtube.com/results?search_query=growth+mindset+neuroplasticity",
     "maps_to": ["risk_fixed_mindset"],

@@ -93,8 +93,8 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
 
       {/* Charts */}
       <div className="chart-container">
-        <canvas ref={donutCanvasRef} width="750" height="500"></canvas>
-        <canvas ref={radarCanvasRef} width="750" height="500"></canvas>
+        <canvas ref={donutCanvasRef} width="800" height="600"></canvas>
+        <canvas ref={radarCanvasRef} width="800" height="600"></canvas>
       </div>
 
       {/* One Thing */}
@@ -102,6 +102,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
         <h2>The One Thing You Can Do Now!</h2>
         <h3>{results.oneThing.title}</h3>
         <p>{results.oneThing.description}</p>
+        <p><i>{results.oneThing.reason}</i></p>
         <ul className="info-list">
           {results.oneThing.steps.map((step, idx) => (
             <li key={idx}>{step}</li>
@@ -138,6 +139,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
             <div key={video.url} className="card" style={{ marginBottom: '1rem' }}>
               <h3>{video.title}</h3>
               <p>{video.tldr}</p>
+              <p><i>{video.reason}</i></p>
               <a
                 href={video.url}
                 target="_blank"
@@ -162,6 +164,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
               <p className="subtitle">
                 {article.authors} ({article.year}) – {article.source}
               </p>
+              <p><i>{article.reason}</i></p>
               <ul className="info-list">
                 {article.tldr.map((item, i) => (
                   <li key={i}>{item}</li>

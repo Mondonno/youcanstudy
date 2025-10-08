@@ -13,6 +13,7 @@ export function selectOneThing(flags: string[]): OneThing {
   if (flags.includes('low_priming')) {
     return {
       title: 'Establish a Priming and Brain-Dump Routine',
+      reason: 'Your low priming score suggests that you may not be adequately preparing your brain for new learning. Priming helps activate relevant prior knowledge and sets the stage for deeper understanding.',
       description:
         'Start every learning session by previewing the topic, asking questions, and connecting new ideas to what you already know. Then summarise from memory immediately after.',
       steps: [
@@ -27,6 +28,7 @@ export function selectOneThing(flags: string[]): OneThing {
   if (flags.includes('low_retrieval')) {
     return {
       title: 'Implement Daily Micro-Retrieval',
+      reason: 'Your low retrieval score indicates that you may not be effectively practicing recall, which is crucial for strengthening memory and identifying gaps in understanding.',
       description:
         'Spaced, low-stakes recall strengthens memory better than re-reading. Engage in short recall sessions each day to test your knowledge and reveal misunderstandings.',
       steps: [
@@ -41,6 +43,7 @@ export function selectOneThing(flags: string[]): OneThing {
   if (flags.includes('weak_reference') || flags.includes('linear_notes')) {
     return {
       title: 'Switch to Concept-Map Based Note-Taking',
+      reason: 'Your weak reference score and note-taking style suggest that you may benefit from moving away from linear transcription towards more visual and relational note-taking methods. This can enhance understanding and retention of complex information.',
       description:
         'Rethink your notes: separate facts from concepts and use non-linear structures to map relationships instead of transcribing everything linearly.',
       steps: [
@@ -55,6 +58,7 @@ export function selectOneThing(flags: string[]): OneThing {
   if (flags.includes('risk_fixed_mindset')) {
     return {
       title: 'Cultivate a Growth Mindset',
+      reason: 'Your responses indicate a tendency towards a fixed mindset, which can limit your motivation and resilience in the face of challenges. Adopting a growth mindset can enhance your learning experience and outcomes.',
       description:
         'Believing that intelligence can grow increases motivation and resilience. Reframe mistakes as opportunities and focus on effort and strategy.',
       steps: [

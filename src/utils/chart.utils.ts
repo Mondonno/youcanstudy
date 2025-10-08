@@ -22,7 +22,7 @@ export function drawDonutChart(canvas: HTMLCanvasElement, scores: Scores, overal
   if (total === 0) return;
 
   const colors = APP_CONFIG.CHARTS.COLORS;
-  const radius = Math.min(canvas.width, canvas.height) / 2 - 40;
+  const radius = Math.min(canvas.width, canvas.height) / 2 - 100;
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
 
@@ -99,7 +99,7 @@ export function drawRadarChart(canvas: HTMLCanvasElement, scores: Scores): void 
   const domains = APP_CONFIG.CORE_DOMAINS;
   const values = domains.map((d) => (scores[d] ?? 0) / 100);
   const numAxes = domains.length;
-  const radius = Math.min(canvas.width, canvas.height) / 2 - 60;
+  const radius = Math.min(canvas.width, canvas.height) / 2 - 100;
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
 

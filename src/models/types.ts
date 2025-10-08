@@ -14,6 +14,7 @@ export interface Question {
 
 export interface VideoRec {
   id: string;
+  reason: string;
   title: string;
   url: string;
   maps_to: string[];
@@ -23,6 +24,7 @@ export interface VideoRec {
 
 export interface ArticleRec {
   id: string;
+  reason: string;
   title: string;
   authors: string;
   year: number;
@@ -44,6 +46,7 @@ export interface Answers {
 
 export interface OneThing {
   title: string;
+  reason: string;
   description: string;
   steps: string[];
 }
