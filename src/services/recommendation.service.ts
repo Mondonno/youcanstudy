@@ -72,6 +72,7 @@ export function selectOneThing(flags: string[]): OneThing {
   // Default: interleaving improvement
   return {
     title: 'Practice Interleaving and Spaced Revision',
+    reason: 'Interleaving and spaced revision are proven techniques to improve long-term retention and understanding.',
     description:
       'Mix different topics and problem types within a study session and distribute your practice over time to improve discrimination and long-term retention.',
     steps: [

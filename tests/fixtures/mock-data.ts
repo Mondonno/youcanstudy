@@ -57,6 +57,7 @@ export const mockMetaQuestions: Question[] = [
 export const mockVideos: VideoRec[] = [
   {
     id: 'V1',
+    reason: 'This video explains priming techniques to prepare your brain for learning.',
     title: 'Video about priming',
     url: 'https://example.com/v1',
     maps_to: ['low_priming'],
@@ -65,6 +66,7 @@ export const mockVideos: VideoRec[] = [
   },
   {
     id: 'V2',
+    reason: 'This video covers retrieval practice and encoding strategies to improve memory.',
     title: 'Video about retrieval',
     url: 'https://example.com/v2',
     maps_to: ['low_retrieval', 'low_encoding'],
@@ -73,6 +75,7 @@ export const mockVideos: VideoRec[] = [
   },
   {
     id: 'V3',
+    reason: 'This short video introduces growth mindset concepts for better learning.',
     title: 'Short video about mindset',
     url: 'https://example.com/v3',
     maps_to: ['risk_fixed_mindset'],
@@ -84,6 +87,7 @@ export const mockVideos: VideoRec[] = [
 export const mockArticles: ArticleRec[] = [
   {
     id: 'A1',
+    reason: 'This article provides strategies for priming and retrieval to enhance learning effectiveness.',
     title: 'Article about learning',
     authors: 'Smith et al.',
     year: 2020,
@@ -96,6 +100,7 @@ export const mockArticles: ArticleRec[] = [
   },
   {
     id: 'A2',
+    reason: 'This article discusses effective note-taking and reference strategies for better knowledge organization.',
     title: 'Article about notes',
     authors: 'Jones',
     year: 2021,
