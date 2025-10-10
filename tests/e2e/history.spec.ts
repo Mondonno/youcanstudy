@@ -48,7 +48,7 @@ test.describe('History Management', () => {
     await completeQuizQuickly(page);
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Should see history page heading (use exact match to avoid conflict with "No quiz history")
     await expect(page.getByRole('heading', { name: 'Quiz History', exact: true })).toBeVisible();
@@ -60,7 +60,7 @@ test.describe('History Management', () => {
 
   test('should show empty state when no history exists', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Should see empty state (use heading role to avoid ambiguity)
     await expect(page.getByRole('heading', { name: /no quiz history/i })).toBeVisible();
@@ -69,12 +69,12 @@ test.describe('History Management', () => {
   test('should display multiple history entries', async ({ page }) => {
     // Complete quiz multiple times
     await completeQuizQuickly(page, 2);
-    await page.getByRole('button', { name: /take quiz again/i }).click();
+    await page.getByRole('button', { name: /take quiz again/i }).first().click();
     
     await completeQuizQuickly(page, 4);
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Should see 2 entries
     const historyData = await page.evaluate(() => {
@@ -89,7 +89,7 @@ test.describe('History Management', () => {
     await completeQuizQuickly(page);
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Click on an entry to view details
     const viewButton = page.getByRole('button', { name: /view/i }).first();
@@ -105,7 +105,7 @@ test.describe('History Management', () => {
     await completeQuizQuickly(page);
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Delete the entry
     const deleteButton = page.getByRole('button', { name: /delete/i }).first();
@@ -132,11 +132,11 @@ test.describe('History Management', () => {
   test('should allow clearing all history', async ({ page }) => {
     // Complete multiple quizzes
     await completeQuizQuickly(page, 2);
-    await page.getByRole('button', { name: /take quiz again/i }).click();
+    await page.getByRole('button', { name: /take quiz again/i }).first().click();
     await completeQuizQuickly(page, 4);
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Clear all history
     const clearButton = page.getByRole('button', { name: /clear all/i });
@@ -165,7 +165,7 @@ test.describe('History Management', () => {
     await completeQuizQuickly(page);
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Export history
     const exportButton = page.getByRole('button', { name: /export history/i });
@@ -185,7 +185,7 @@ test.describe('History Management', () => {
     await page.reload();
     
     // View history
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Should still see the history entry
     const historyData = await page.evaluate(() => {
@@ -199,7 +199,7 @@ test.describe('History Management', () => {
 
   test('should return to intro from history page', async ({ page }) => {
     await completeQuizQuickly(page);
-    await page.getByRole('button', { name: /view history/i }).click();
+    await page.getByRole('button', { name: /view history/i }).first().click();
     
     // Go back to intro (button says "Back to Home")
     const backButton = page.getByRole('button', { name: /back to home/i });
@@ -214,7 +214,7 @@ test.describe('History Management', () => {
     // For this test, just verify the mechanism works with a few entries
     for (let i = 0; i < 3; i++) {
       if (i > 0) {
-        await page.getByRole('button', { name: /take quiz again/i }).click();
+        await page.getByRole('button', { name: /take quiz again/i }).first().click();
       }
       await completeQuizQuickly(page, i + 2);
     }

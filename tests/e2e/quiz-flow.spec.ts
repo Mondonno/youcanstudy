@@ -62,10 +62,10 @@ test.describe('Quiz Flow', () => {
     await expect(page.getByRole('heading', { name: /overlearning \(\d+%\)/i })).toBeVisible();
     
     // Step 8: Verify action buttons are present
-    await expect(page.getByRole('button', { name: /export results/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /copy llm prompt/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /view history/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /take quiz again/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /export results/i }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /copy llm prompt/i }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /view history/i }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /take quiz again/i }).first()).toBeVisible();
   });
 
   test('should allow navigating back through questions', async ({ page }) => {
@@ -125,7 +125,7 @@ test.describe('Quiz Flow', () => {
     await expect(page.getByRole('heading', { name: /personalised report/i })).toBeVisible();
     
     // Start quiz again - this takes us back to intro first
-    await page.getByRole('button', { name: /take quiz again/i }).click();
+    await page.getByRole('button', { name: /take quiz again/i }).first().click();
     
     // Now we're back at intro, start the quiz
     await expect(page.getByRole('heading', { name: /learning diagnostic/i })).toBeVisible();

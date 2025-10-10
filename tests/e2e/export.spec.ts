@@ -37,7 +37,7 @@ test.describe('Export Functionality', () => {
     await completeQuiz(page);
     
     // Click export button
-    await page.getByRole('button', { name: /export results/i }).click();
+    await page.getByRole('button', { name: /export results/i }).first().click();
     
     // Modal should appear
     await expect(page.getByRole('heading', { name: /export results/i })).toBeVisible();
@@ -49,7 +49,7 @@ test.describe('Export Functionality', () => {
   test('should close export modal when clicking cancel', async ({ page }) => {
     await completeQuiz(page);
     
-    await page.getByRole('button', { name: /export results/i }).click();
+    await page.getByRole('button', { name: /export results/i }).first().click();
     await expect(page.getByRole('heading', { name: /export results/i })).toBeVisible();
     
     // Click cancel
@@ -66,7 +66,7 @@ test.describe('Export Functionality', () => {
     const downloadPromise = page.waitForEvent('download');
     
     // Click export button
-    await page.getByRole('button', { name: /export results/i }).click();
+    await page.getByRole('button', { name: /export results/i }).first().click();
     await page.getByRole('button', { name: /export as json/i }).click();
     
     // Wait for download
@@ -105,7 +105,7 @@ test.describe('Export Functionality', () => {
     
     // Export JSON
     const downloadPromise = page.waitForEvent('download');
-    await page.getByRole('button', { name: /export results/i }).click();
+    await page.getByRole('button', { name: /export results/i }).first().click();
     await page.getByRole('button', { name: /export as json/i }).click();
     const download = await downloadPromise;
     
@@ -157,7 +157,7 @@ test.describe('Export Functionality', () => {
     await completeQuiz(page);
     
     // Click export button
-    await page.getByRole('button', { name: /export results/i }).click();
+    await page.getByRole('button', { name: /export results/i }).first().click();
     
     // Mock window.open to capture the call
     const popupPromise = page.waitForEvent('popup');
@@ -187,7 +187,7 @@ test.describe('Export Functionality', () => {
     await completeQuiz(page);
     
     // Click copy prompt button
-    await page.getByRole('button', { name: /copy llm prompt/i }).click();
+    await page.getByRole('button', { name: /copy llm prompt/i }).first().click();
     
     // Wait for alert
     page.on('dialog', async (dialog) => {
