@@ -15,10 +15,11 @@ interface ExportButtonsProps {
   results: DiagnosticResults;
   onReturnToIntro: () => void;
   onShowHistory: () => void;
+  allQuestions?: any[];
   style?: React.CSSProperties;
 }
 
-const ExportButtons: React.FC<ExportButtonsProps> = ({ results, onReturnToIntro, onShowHistory, style }) => {
+const ExportButtons: React.FC<ExportButtonsProps> = ({ results, onReturnToIntro, onShowHistory, allQuestions, style }) => {
   const [showExportModal, setShowExportModal] = useState(false);
 
   const handleExportClick = () => {
@@ -54,7 +55,9 @@ const ExportButtons: React.FC<ExportButtonsProps> = ({ results, onReturnToIntro,
         results.oneThing,
         results.domainActions,
         results.recommendedVideos,
-        results.recommendedArticles
+        results.recommendedArticles,
+        allQuestions,
+        results.answers
       );
       await copyToClipboard(prompt);
       alert('Prompt copied to clipboard!');

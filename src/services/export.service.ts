@@ -2,7 +2,7 @@
  * Export service - handles data export and LLM prompt generation
  */
 
-import type { DiagnosticResults, Scores, OneThing, VideoRec, ArticleRec } from '../models/types.js';
+import type { DiagnosticResults, Scores, OneThing, VideoRec, ArticleRec, Question } from '../models/types.js';
 import type { HistoryEntry } from './history.service.js';
 import { APP_CONFIG } from '../config/app.config.js';
 
@@ -175,7 +175,9 @@ export function generateLLMPrompt(
   oneThing: OneThing,
   domainActions: Record<string, string[]>,
   videos: VideoRec[],
-  articles: ArticleRec[]
+  articles: ArticleRec[],
+  allQuestions?: Question[],
+  answers?: Record<string, number | string>
 ): string {
   const coreDomains = APP_CONFIG.CORE_DOMAINS;
   const coreString = coreDomains.map((d) => `${d}: ${scores[d] ?? 0}`).join(', ');
@@ -186,6 +188,32 @@ export function generateLLMPrompt(
   const articleIds = articles.map((a) => a.id).join(', ');
   const videoIds = videos.map((v) => v.id).join(', ');
 
+  // Build answers section if questions and answers are provided
+  let answersSection = '';
+  if (allQuestions && answers) {
+    answersSection = '\n\nDetailed Question Responses:\n';
+    answersSection += allQuestions.map(q => {
+      const answer = answers[q.id];
+      if (answer === undefined) return '';
+      
+      // Determine if answer is positive (high score) or negative (low score)
+      // For likert5: 4-5 is positive, 1-2 is negative, 3 is neutral
+      // For ynm: yes (1) is positive, no (0) or maybe (0.5) is neutral/negative
+      let sentiment = '';
+      if (typeof answer === 'number') {
+        if (q.reverse) {
+          // For reverse-scored questions, low answers are positive
+          sentiment = answer >= 4 ? '❌ (negative pattern)' : answer >= 3 ? '⚠️ (neutral)' : '✅ (positive pattern)';
+        } else {
+          // For normal questions, high answers are positive
+          sentiment = answer >= 4 ? '✅ (positive pattern)' : answer >= 3 ? '⚠️ (neutral)' : '❌ (negative pattern)';
+        }
+      }
+      
+      return `- Q: ${q.text}\n  Answer: ${answer} ${sentiment}`;
+    }).filter(line => line).join('\n');
+  }
+
   return (
     `You are an evidence-based learning coach.\n` +
     `My core domain scores are: ${coreString}.\n` +
@@ -195,8 +223,9 @@ export function generateLLMPrompt(
     `Domain actions: ${coreDomains
       .map((d) => `${d}: ${domainActions[d].slice(0, 2).join('; ')}`)
       .join(' | ')}.\n` +
-    `Recommended videos: ${videoIds}. Recommended articles: ${articleIds}.\n` +
-    `Please provide a concise study plan based on these results with actionable next steps.`
+    `Recommended videos: ${videoIds}. Recommended articles: ${articleIds}.` +
+    answersSection +
+    `\n\nPlease provide a concise study plan based on these results with actionable next steps.`
   );
 }
 

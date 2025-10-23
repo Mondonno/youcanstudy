@@ -72,7 +72,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ appData, results, onReturnToI
     <div className="card">
       <h1>Your Personalised Report</h1>
 
-      <ExportButtons results={results} onReturnToIntro={onReturnToIntro} onShowHistory={onShowHistory} style={{ marginTop: '1rem' }} />
+      <ExportButtons results={results} onReturnToIntro={onReturnToIntro} onShowHistory={onShowHistory} allQuestions={appData ? [...appData.coreQuestions, ...appData.metaQuestions] : undefined} style={{ marginTop: '1rem' }} />
 
       {/* Charts */}
       <div className="chart-container">
@@ -173,7 +173,7 @@ const ResultsView: React.FC<ResultsViewProps> = ({ appData, results, onReturnToI
         </div>
       )}
 
-      <ExportButtons results={results} onReturnToIntro={onReturnToIntro} onShowHistory={onShowHistory} />
+      <ExportButtons results={results} onReturnToIntro={onReturnToIntro} onShowHistory={onShowHistory} allQuestions={appData ? [...appData.coreQuestions, ...appData.metaQuestions] : undefined} />
 
       {/* Collapsible Answers Details */}
       <div style={{ marginTop: '2rem' }}>
