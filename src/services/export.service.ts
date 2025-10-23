@@ -215,17 +215,53 @@ export function generateLLMPrompt(
   }
 
   return (
-    `You are an evidence-based learning coach.\n` +
-    `My core domain scores are: ${coreString}.\n` +
-    `My meta domain scores are: ${metaDomains}.\n` +
-    `Overall flags: ${flagsString}.\n` +
-    `The one thing recommended is: ${oneThing.title} – ${oneThing.description}.\n` +
-    `Domain actions: ${coreDomains
-      .map((d) => `${d}: ${domainActions[d].slice(0, 2).join('; ')}`)
-      .join(' | ')}.\n` +
-    `Recommended videos: ${videoIds}. Recommended articles: ${articleIds}.` +
+    // PERSONA & CONTEXT (Tip #3: Utilize contextual prompts)
+    `You are an expert evidence-based learning coach who specializes in meta-learning and study skill optimization. ` +
+    `Your role is to help students maximize their learning ROI by focusing on high-impact interventions.\n\n` +
+    
+    // SITUATION (Tip #2: Be as specific as possible)
+    `STUDENT'S DIAGNOSTIC PROFILE:\n` +
+    `Core Learning Skills: ${coreString}\n` +
+    `Meta-Learning Skills: ${metaDomains}\n` +
+    `Key Areas for Improvement: ${flagsString || 'None identified'}\n\n` +
+    
+    // PRIORITY FOCUS (Tip #2 & #5: Specificity and highest ROI)
+    `HIGHEST-ROI PRIORITY:\n` +
+    `Focus Area: "${oneThing.title}"\n` +
+    `Why This Matters: ${oneThing.description}\n` +
+    `Quick Wins to Start Today: ${oneThing.steps.slice(0, 2).join('; ')}\n\n` +
+    
+    // DOMAIN-SPECIFIC ACTIONS (Tip #4: Provide examples)
+    `TARGETED ACTIONS BY DOMAIN:\n` +
+    `${coreDomains
+      .map((d) => `• ${d.charAt(0).toUpperCase() + d.slice(1)} (Current: ${scores[d] ?? 0}%): ${domainActions[d].slice(0, 2).join(' → ')}`)
+      .join('\n')}\n\n` +
+    
+    // SUPPORTING RESOURCES
+    `RECOMMENDED LEARNING RESOURCES:\n` +
+    `Videos to watch: ${videoIds || 'None recommended'}\n` +
+    `Articles to read: ${articleIds || 'None recommended'}\n` +
+    
+    // DETAILED RESPONSES (Tip #4 & #6: Examples and chain-of-thought)
     answersSection +
-    `\n\nPlease provide a concise study plan based on these results with actionable next steps.`
+    
+    // CHAIN-OF-THOUGHT PROMPT (Tip #6: Break down complex reasoning)
+    `\n\n---\n` +
+    `ANALYSIS FRAMEWORK - Think through this systematically:\n` +
+    `1. CURRENT STATE: Which meta-learning skills are strongest? Which are weakest?\n` +
+    `2. ROOT CAUSES: Why might the low-scoring areas be challenging?\n` +
+    `3. QUICK WINS: What's one small change with high ROI that could be implemented TODAY?\n` +
+    `4. 30-DAY PLAN: What's a realistic sequence of improvements for the next month?\n` +
+    `5. SUCCESS METRICS: How would we know if these changes are working?\n` +
+    `\n` +
+    `---\n` +
+    `DELIVERABLE:\n` +
+    `Please create a personalized study plan that:\n` +
+    `• Prioritizes "${oneThing.title}" as the primary focus\n` +
+    `• Identifies 2-3 specific, actionable steps to implement this week\n` +
+    `• Explains why each step will have high ROI for meta-learning improvement\n` +
+    `• Includes realistic timeframes and success indicators\n` +
+    `• Connects recommendations to the diagnostic results above`
   );
 }
 
