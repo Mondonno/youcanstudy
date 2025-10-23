@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import type { DiagnosticResults } from '../models/types';
+import type { DiagnosticResults, AppData } from '../models/types';
 import type { HistoryEntry } from '../services/history.service';
 import { getScoreSummaryFromEntry } from '../utils/history.utils';
 import {
@@ -15,18 +15,48 @@ import {
 } from '../services/history.service';
 
 interface HistoryManagerProps {
+  appData?: AppData;
   onReturnToIntro: () => void;
   onViewResult: (results: DiagnosticResults) => void;
 }
 
-const HistoryManager: React.FC<HistoryManagerProps> = ({ onReturnToIntro, onViewResult }) => {
+const HistoryManager: React.FC<HistoryManagerProps> = ({ appData, onReturnToIntro, onViewResult }) => {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [selectedEntry, setSelectedEntry] = useState<HistoryEntry | null>(null);
   const [showConfirmDelete, setShowConfirmDelete] = useState<string | null>(null);
+  const [showAnswersDetails, setShowAnswersDetails] = useState(false);
 
   useEffect(() => {
     loadHistory();
   }, []);
+
+  const getQuestionText = (questionId: string): string | null => {
+    if (!appData) return null;
+    
+    const allQuestions = [...appData.coreQuestions, ...appData.metaQuestions];
+    const question = allQuestions.find((q) => q.id === questionId);
+    return question?.text || null;
+  };
+
+  const getAnswerLabel = (answer: number | string, questionId: string): string => {
+    if (typeof answer === 'string') return answer;
+    
+    // Determine if this question is a likert5 or ynm type
+    if (!appData) return String(answer);
+    
+    const allQuestions = [...appData.coreQuestions, ...appData.metaQuestions];
+    const question = allQuestions.find((q) => q.id === questionId);
+    
+    if (question?.type === 'likert5') {
+      const labels = ['', 'Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+      return labels[answer as number] || String(answer);
+    } else if (question?.type === 'ynm') {
+      const labels = ['', 'Yes', 'No', 'Maybe'];
+      return labels[answer as number] || String(answer);
+    }
+    
+    return String(answer);
+  };
 
   const loadHistory = () => {
     const entries = getHistory();
@@ -257,6 +287,63 @@ const HistoryManager: React.FC<HistoryManagerProps> = ({ onReturnToIntro, onView
                   <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
                     Total questions answered: {Object.keys(selectedEntry.results.answers).length}
                   </p>
+
+                  {/* Collapsible Answers Details */}
+                  <div style={{ marginTop: '1rem' }}>
+                    <button
+                      className="button"
+                      onClick={() => setShowAnswersDetails(!showAnswersDetails)}
+                      style={{
+                        width: '100%',
+                        backgroundColor: '#8b5cf6',
+                        marginBottom: '1rem',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <span>{showAnswersDetails ? '▼' : '▶'} Detailed Answers</span>
+                    </button>
+
+                    {showAnswersDetails && (
+                      <div style={{
+                        backgroundColor: '#f9fafb',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '0.5rem',
+                        padding: '1rem',
+                        maxHeight: '400px',
+                        overflowY: 'auto',
+                      }}>
+                        {Object.entries(selectedEntry.results.answers).map(([questionId, answer]) => {
+                          const questionText = getQuestionText(questionId);
+                          const answerLabel = getAnswerLabel(answer, questionId);
+                          
+                          return (
+                            <div
+                              key={questionId}
+                              style={{
+                                marginBottom: '1rem',
+                                paddingBottom: '1rem',
+                                borderBottom: '1px solid #e5e7eb',
+                              }}
+                            >
+                              <div style={{ fontSize: '0.875rem', color: '#374151', marginBottom: '0.25rem' }}>
+                                <strong>Q:</strong> {questionText || questionId}
+                              </div>
+                              <div style={{ fontSize: '0.875rem', color: '#7c3aed', fontWeight: 'bold' }}>
+                                <strong>A:</strong> {answerLabel}
+                              </div>
+                            </div>
+                          );
+                        })}
+                        {Object.keys(selectedEntry.results.answers).length === 0 && (
+                          <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                            No answers found for this attempt.
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ) : (

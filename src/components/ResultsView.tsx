@@ -2,21 +2,51 @@
  * Results View Component - Displays quiz results with charts and recommendations
  */
 
-import React, { useEffect, useRef } from 'react';
-import type { DiagnosticResults } from '../models/types';
+import React, { useEffect, useRef, useState } from 'react';
+import type { DiagnosticResults, AppData } from '../models/types';
 import { drawDonutChart, drawRadarChart } from '../utils/chart.utils';
 import { APP_CONFIG } from '../config/app.config';
 import ExportButtons from './ExportButtons';
 
 interface ResultsViewProps {
+  appData?: AppData;
   results: DiagnosticResults;
   onReturnToIntro: () => void;
   onShowHistory: () => void;
 }
 
-const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onShowHistory }) => {
+const ResultsView: React.FC<ResultsViewProps> = ({ appData, results, onReturnToIntro, onShowHistory }) => {
   const donutCanvasRef = useRef<HTMLCanvasElement>(null);
   const radarCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [showAnswersDetails, setShowAnswersDetails] = useState(false);
+
+  const getQuestionText = (questionId: string): string | null => {
+    if (!appData) return null;
+    
+    const allQuestions = [...appData.coreQuestions, ...appData.metaQuestions];
+    const question = allQuestions.find((q) => q.id === questionId);
+    return question?.text || null;
+  };
+
+  const getAnswerLabel = (answer: number | string, questionId: string): string => {
+    if (typeof answer === 'string') return answer;
+    
+    // Determine if this question is a likert5 or ynm type
+    if (!appData) return String(answer);
+    
+    const allQuestions = [...appData.coreQuestions, ...appData.metaQuestions];
+    const question = allQuestions.find((q) => q.id === questionId);
+    
+    if (question?.type === 'likert5') {
+      const labels = ['', 'Strongly Disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly Agree'];
+      return labels[answer as number] || String(answer);
+    } else if (question?.type === 'ynm') {
+      const labels = ['', 'Yes', 'No', 'Maybe'];
+      return labels[answer as number] || String(answer);
+    }
+    
+    return String(answer);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -144,6 +174,64 @@ const ResultsView: React.FC<ResultsViewProps> = ({ results, onReturnToIntro, onS
       )}
 
       <ExportButtons results={results} onReturnToIntro={onReturnToIntro} onShowHistory={onShowHistory} />
+
+      {/* Collapsible Answers Details */}
+      <div style={{ marginTop: '2rem' }}>
+        <button
+          className="button"
+          onClick={() => setShowAnswersDetails(!showAnswersDetails)}
+          style={{
+            width: '100%',
+            backgroundColor: '#8b5cf6',
+            marginBottom: '1rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <span>{showAnswersDetails ? '▼' : '▶'} View Detailed Answers</span>
+        </button>
+
+        {showAnswersDetails && (
+          <div style={{
+            backgroundColor: '#f9fafb',
+            border: '1px solid #e5e7eb',
+            borderRadius: '0.5rem',
+            padding: '1rem',
+            maxHeight: '500px',
+            overflowY: 'auto',
+          }}>
+            <h4 style={{ marginBottom: '1rem' }}>All Answers</h4>
+            {Object.entries(results.answers).map(([questionId, answer]) => {
+              const questionText = getQuestionText(questionId);
+              const answerLabel = getAnswerLabel(answer, questionId);
+              
+              return (
+                <div
+                  key={questionId}
+                  style={{
+                    marginBottom: '1rem',
+                    paddingBottom: '1rem',
+                    borderBottom: '1px solid #e5e7eb',
+                  }}
+                >
+                  <div style={{ fontSize: '0.875rem', color: '#374151', marginBottom: '0.25rem' }}>
+                    <strong>Q:</strong> {questionText || questionId}
+                  </div>
+                  <div style={{ fontSize: '0.875rem', color: '#7c3aed', fontWeight: 'bold' }}>
+                    <strong>A:</strong> {answerLabel}
+                  </div>
+                </div>
+              );
+            })}
+            {Object.keys(results.answers).length === 0 && (
+              <p style={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                No answers found for this attempt.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -139,6 +139,7 @@ const App: React.FC = () => {
       )}
       {view === 'results' && results && (
         <ResultsView
+          appData={appData}
           results={results}
           onReturnToIntro={handleReturnToIntro}
           onShowHistory={handleShowHistory}
@@ -146,6 +147,7 @@ const App: React.FC = () => {
       )}
       {view === 'history' && (
         <HistoryManager
+          appData={appData}
           onReturnToIntro={handleReturnToIntro}
           onViewResult={(historyResults: DiagnosticResults) => {
             setResults(historyResults);
